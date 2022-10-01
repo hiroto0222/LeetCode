@@ -39,7 +39,7 @@ class Solution {
             List<Integer> list = new ArrayList<>();
             int size = q.size();
             for (int i = 0; i < size; i++) {
-                if(level % 2 == 0) {
+                if (level % 2 == 0) {
                     TreeNode cur = q.pollLast();
                     list.add(cur.val);
                     if(cur.left != null) q.offerFirst(cur.left);
