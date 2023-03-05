@@ -14,28 +14,25 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        ans = []
+        # montonic decreasing queue
+        # - can ignore all values less than max
+
         q = deque()
+        ans = []
 
         for i in range(k):
-            if not q:
-                q.append(nums[i])
-            else:
-                while q and nums[i] > q[-1]:
-                    q.pop()
-                q.append(nums[i])
+            while q and q[-1] < nums[i]:
+                q.pop()
+            q.append(nums[i])
         ans.append(q[0])
         
         for r in range(k, len(nums)):
             l = r - k
             if nums[l] == q[0]:
                 q.popleft()
-            if not q:
-                q.append(nums[r])
-            else:
-                while q and nums[r] > q[-1]:
-                    q.pop()
-                q.append(nums[r])
+            while q and q[-1] < nums[r]:
+                q.pop()
+            q.append(nums[r])
             ans.append(q[0])
         
         return ans
