@@ -10,20 +10,22 @@ class Solution:
         # recursively keep adding vals till exceeds
         res = []
 
-        def helper(i, curr_sum, curr_combo):
+        def dfs(i, curr_sum, curr_combo):
             if curr_sum == target:
                 res.append(curr_combo.copy())
                 return
-            if i >= len(candidates) or curr_sum > target:
+            elif i >= len(candidates) or curr_sum > target:
                 return
             
+            # keep adding current val till exceeds
             curr_combo.append(candidates[i])
-            helper(i, curr_sum + candidates[i], curr_combo)
+            dfs(i, curr_sum + candidates[i], curr_combo)
+
+            # backtrack
             curr_combo.pop()
-            helper(i + 1, curr_sum, curr_combo)
-        
-        helper(0, 0, [])
+            dfs(i + 1, curr_sum, curr_combo)
+
+        dfs(0, 0, [])
         return res
 
 # @lc code=end
-
