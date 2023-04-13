@@ -6,11 +6,14 @@
 
 -- @lc code=start
 # Write your MySQL query statement below
-SELECT firstName, lastName, city, state
-FROM Person P
-LEFT JOIN Address A
-    ON P.personId = A.personId
-;
+
+-- first name, last name, city, and state
+-- left join
+
+SELECT a.firstName, a.lastName, b.city, b.state
+FROM person a
+LEFT JOIN address b
+ON b.personId = a.personId;
 
 -- @lc code=end
 
