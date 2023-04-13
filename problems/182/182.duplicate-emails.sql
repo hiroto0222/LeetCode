@@ -6,11 +6,11 @@
 
 -- @lc code=start
 # Write your MySQL query statement below
-SELECT Email
-FROM Person
-group by Email
-HAVING count(Email) > 1
-;
+
+SELECT email AS Email
+FROM person
+GROUP BY email
+HAVING COUNT(email) > 1;
 
 -- @lc code=end
 
