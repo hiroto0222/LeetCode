@@ -17,5 +17,5 @@ class Solution:
                 return [seen[val], i]
             seen[target - val] = i
 
-        
+
 # @lc code=end
