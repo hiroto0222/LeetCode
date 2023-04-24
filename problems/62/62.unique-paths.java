@@ -11,6 +11,8 @@ class Solution {
         // as only 1 way to reach first row, first col
         // dp[0][0 to n] = 1
         // dp[0 to n][0] = 1
+        // time -> O(mn)
+        // space -> O(mn)
 
         int[][] dp = new int[m][n];
         for (int i = 0; i < m; i++) {
