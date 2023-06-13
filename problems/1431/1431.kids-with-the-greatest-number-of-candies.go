@@ -4,6 +4,8 @@
  * [1431] Kids With the Greatest Number of Candies
  */
 
+package solution
+
 // @lc code=start
 func kidsWithCandies(candies []int, extraCandies int) []bool {
 	n := len(candies)
@@ -31,4 +33,3 @@ func max(arr []int) int {
 }
 
 // @lc code=end
-

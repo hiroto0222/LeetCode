@@ -4,6 +4,8 @@
  * [1071] Greatest Common Divisor of Strings
  */
 
+package solution
+
 // @lc code=start
 func gcdOfStrings(str1 string, str2 string) string {
 	if str1+str2 != str2+str1 {
@@ -23,4 +25,3 @@ func gcd(a, b int) int {
 }
 
 // @lc code=end
-

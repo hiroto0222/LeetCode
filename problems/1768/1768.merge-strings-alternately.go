@@ -4,6 +4,8 @@
  * [1768] Merge Strings Alternately
  */
 
+package solution
+
 // @lc code=start
 func mergeAlternately(word1 string, word2 string) string {
 	res := ""
@@ -29,4 +31,3 @@ func mergeAlternately(word1 string, word2 string) string {
 }
 
 // @lc code=end
-
