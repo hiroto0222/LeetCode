@@ -13,6 +13,7 @@ class Solution:
     def jump(self, nums: List[int]) -> int:
         # nums = [2,3,1,1,4]
         # BFS using sliding window
+        # time O(N), space O(1)
 
         n = len(nums)
         res = 0
