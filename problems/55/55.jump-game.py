@@ -9,23 +9,18 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         # nums = [2,3,1,1,4]
-        # start from i = 0
-        # recursive dp
-        # keep track if curr position is reachable
+        # start from end
+        # if can reach current position, then move goal k
+        # if goal k reaches start, then can reach end
+        # nums = [2,3,2,0,1,4]
 
         n = len(nums)
-        dp = [False for _ in range(n)]
-        dp[0] = True
+        k = n - 1
+        for i in range(n - 2, -1, -1):
+            if nums[i] + i >= k:
+                k = i
 
-        for i in range(1, n):
-            # for curr position check if reachable by previous
-            for j in range(i - 1, -1, -1):
-                if nums[j] >= i - j and dp[j]:
-                    # then reachable
-                    dp[i] = True
-                    break
-
-        return dp[-1]
+        return k == 0
 
 
 # @lc code=end
