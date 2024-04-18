@@ -8,18 +8,25 @@
 # @lc code=start
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        # nums = [1, 2, 3, 4]
-        # pre = [1, 2, 6, 24]
-        # suf = [24, 24, 12, 4]
+        # nums = [1,2,3,4]
+        # prefix_prod = [1,2,6,24]
+        # suffix_prod = [24,24,12,4]
+        # for nums[i] -> prefix_prod[i - 1] * suffix_prod[i + 1]
 
-        n, ans, suf = len(nums), [1] * len(nums), 1
-        for i in range(1, n):
-            ans[i] = ans[i - 1] * nums[i - 1]
+        n = len(nums)
+        res = []
+        for i in range(0, n):
+            prefix = res[i - 1] if i > 0 else 1
+            res.append(prefix * nums[i])
+
+        # [1,2,6,24]
+        suffix = 1
         for i in range(n - 1, -1, -1):
-            ans[i] *= suf
-            suf *= nums[i]
+            prefix = res[i - 1] if i > 0 else 1
+            res[i] = prefix * suffix
+            suffix *= nums[i]
 
-        return ans
+        return res
 
 
 # @lc code=end
