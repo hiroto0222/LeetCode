@@ -6,33 +6,52 @@
 
 # @lc code=start
 import random
+from collections import defaultdict
 
 
 class RandomizedSet:
     # keep track of values in a set
     # get random value from set
     # average O(1) time
+    # set keeps track of index
+    # store list of vals for random
 
     def __init__(self):
-        self.vals = set()
+        self.set_vals = defaultdict(int)  # holds index of value in list_vals
+        self.list_vals = []
 
     def insert(self, val: int) -> bool:
-        if val in self.vals:
+        if val in self.set_vals:
             return False
-        self.vals.add(val)
+
+        self.list_vals.append(val)
+        self.set_vals[val] = len(self.list_vals) - 1
         return True
 
     def remove(self, val: int) -> bool:
-        if val not in self.vals:
+        if val not in self.set_vals:
             return False
-        self.vals.remove(val)
+
+        # if last element, just pop
+        if self.set_vals[val] == len(self.list_vals) - 1:
+            self.set_vals.pop(val)
+            self.list_vals.pop()
+        # if not last element, swap with last and pop
+        else:
+            idx = self.set_vals[val]
+            last_val = self.list_vals[-1]
+
+            self.list_vals[idx] = last_val
+            self.set_vals[last_val] = idx
+
+            self.set_vals.pop(val)
+            self.list_vals.pop()
+
         return True
 
     def getRandom(self) -> int:
-        # time O(N)
-        n = len(self.vals)
-        rand_i = random.randint(0, n - 1)
-        return list(self.vals)[rand_i]
+        rand_i = random.randint(0, len(self.list_vals) - 1)
+        return self.list_vals[rand_i]
 
 
 # Your RandomizedSet object will be instantiated and called as such:
