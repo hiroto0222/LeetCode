@@ -9,45 +9,30 @@ import random
 
 
 class RandomizedSet:
+    # keep track of values in a set
+    # get random value from set
+    # average O(1) time
+
     def __init__(self):
-        self.set = {}
-        self.vals = []
+        self.vals = set()
 
     def insert(self, val: int) -> bool:
-        # inserts val if not present
-        # return true if not present, false otherwise
-        if val in self.set:
+        if val in self.vals:
             return False
-
-        self.set[val] = len(self.vals)
-        self.vals.append(val)
+        self.vals.add(val)
         return True
 
     def remove(self, val: int) -> bool:
-        # removes val if present
-        # return true if present, false otherwise
-
-        # {1: 1, 2: 2, 3: 0}
-        # [3, 1, 2] want to remove 3
-        # swap last element with element to remove
-        # then remove from set and list
-        if val not in self.set:
+        if val not in self.vals:
             return False
-
-        last_ele = self.vals[-1]
-        curr_ele_idx = self.set[val]
-
-        # swap last ele idx with current ele idx
-        self.set[last_ele] = curr_ele_idx
-        self.vals[curr_ele_idx], self.vals[-1] = last_ele, val
-        self.vals.pop()
-        self.set.pop(val)
-
+        self.vals.remove(val)
         return True
 
     def getRandom(self) -> int:
-        # return random element from set
-        return random.choice(self.vals)
+        # time O(N)
+        n = len(self.vals)
+        rand_i = random.randint(0, n - 1)
+        return list(self.vals)[rand_i]
 
 
 # Your RandomizedSet object will be instantiated and called as such:
