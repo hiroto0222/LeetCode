@@ -8,32 +8,28 @@
 # @lc code=start
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        # return starting gas station idx
-        # ie:
-        # gas  = [1 ,2 ,3 ,4,5]
-        # cost = [3 ,4 ,5 ,1,2]
+        # gas = [1,2,3,4,5]
+        # cost = [3,4,5,1,2]
         # gain = [-2,-2,-2,3,3]
-        # i = 4 -> 0 + 5 (2)
-        # i = 0 -> 3 + 1 (3)
-        # i = 1 -> 1 + 2 (4)
+        # if the sum of gain is >= 0, then a path must exist
+        # time O(N), space O(1)
 
         n = len(gas)
 
-        gain = []
-        for i in range(n):
-            gain.append(gas[i] - cost[i])
-
-        if sum(gain) < 0:
+        if sum(gas) - sum(cost) < 0:
             return -1
 
-        s, curr_sum = 0, 0
+        # if sum of gain is >= 0, find valid starting position
+        # if the sum at any point is < 0 then the current starting position is invalid, so reset
+        res = 0
+        curr_sum = 0
         for i in range(n):
-            curr_sum += gain[i]
+            curr_sum += gas[i] - cost[i]
             if curr_sum < 0:
-                s = i + 1
+                res = i + 1
                 curr_sum = 0
 
-        return s
+        return res
 
 
 # @lc code=end
