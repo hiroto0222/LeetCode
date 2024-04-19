@@ -4,36 +4,43 @@
 # [15] 3Sum
 #
 
+
 # @lc code=start
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        # find all distinct triplets such that they equal 0
-        # nums = [-1, 0, 1, 2, -1, -4]
-        # sort nums -> [-4, -1, -1, 0, 1, 2]
-        # O(N^2) time, O(N) space
+        # find all unique triplets such that nums[i] + nums[j] + nums[k] = 0
+        # nums = [-1,0,1,2,-1,-4]
+        # -> [[-1,-1,2],[-1,0,1]]
+        # sort nums
+        # [-4,-1,-1,0,1,2]
+        # for each nums[i], find all pair of values nums[l], nums[r] such that equal 0
+        # as unique triplets, if found skip all consecutive nums[l]
+        # time O(NlogN) + O(N^2) = O(N^2), space O(N)
 
-        nums.sort()
         n = len(nums)
-        ans = []
+        nums.sort()
+        res = []
+        seen = set()
 
         for i in range(n):
-            if i > 0 and nums[i] == nums[i - 1]:
+            if nums[i] in seen:
                 continue
-            
+
+            seen.add(nums[i])
             l, r = i + 1, n - 1
             while l < r:
                 curr_sum = nums[i] + nums[l] + nums[r]
-                if curr_sum < 0:
-                    l += 1
-                elif curr_sum > 0:
+                if curr_sum > 0:
                     r -= 1
+                elif curr_sum < 0:
+                    l += 1
                 else:
-                    ans.append([nums[i], nums[l], nums[r]])
+                    res.append([nums[i], nums[l], nums[r]])
                     l += 1
                     while l < r and nums[l] == nums[l - 1]:
                         l += 1
-        
-        return ans
-                    
-        
+
+        return res
+
+
 # @lc code=end
