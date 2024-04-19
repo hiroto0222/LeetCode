@@ -20,13 +20,16 @@ class Solution:
         n = len(nums)
         nums.sort()
         res = []
-        seen = set()
 
         for i in range(n):
-            if nums[i] in seen:
+            if nums[i] > 0:
+                # sum will always be greater than 0, so break
+                break
+
+            if i > 0 and nums[i] == nums[i - 1]:
+                # previously seen so skip
                 continue
 
-            seen.add(nums[i])
             l, r = i + 1, n - 1
             while l < r:
                 curr_sum = nums[i] + nums[l] + nums[r]
