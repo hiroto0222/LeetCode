@@ -10,22 +10,12 @@ class Solution {
         // 2 pointers
         // O(N) time, O(1) space
 
-        if (nums.length == 1) {
-            return 1;
-        }
-
         int l = 1;
-        int r = 1;
-
-        while (r < nums.length) {
-            if (nums[r] == nums[r - 1]) {
-                r += 1;
-                continue;
+        for (int r = 1; r < nums.length; r++) {
+            if (nums[r] != nums[r - 1]) {
+                nums[l] = nums[r];
+                l += 1;
             }
-
-            nums[l] = nums[r];
-            r += 1;
-            l += 1;
         }
 
         return l;
