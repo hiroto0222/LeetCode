@@ -10,43 +10,31 @@ class Solution {
         // intuition:
         // keep track of count and update point k
         // k never over takes i
+        // O(N) time, O(1) space
 
         int k = 0;
-        int currCount = 1;
-        char currChar = chars[0];
+        int i = 0;
 
-        for (int i = 1; i < chars.length; i++) {
-            // if equal, continue counting
-            if (chars[i] == currChar) {
-                currCount++;
-                continue;
+        while (i < chars.length) {
+            // iterate till we find char not equal to prev or till end of chars
+            int j = i;
+            while (j < chars.length && chars[j] == chars[i]) {
+                j++;
             }
 
-            // if not equal, update
-            chars[k] = currChar;
-            if (currCount > 1) {
-                String val = Integer.toString(currCount);
-                for (int j = 0; j < val.length(); j++) {
-                    k++;
-                    chars[k] = val.charAt(j);
+            // now compress chars
+            chars[k++] = chars[i];
+            if (j - i > 1) {
+                String cnt = j - i + "";
+                for (char c : cnt.toCharArray()) {
+                    chars[k++] = c;
                 }
             }
-            k++;
-            currCount = 1;
-            currChar = chars[i];
+
+            i = j;
         }
 
-        // check last case
-        chars[k] = currChar;
-        if (currCount > 1) {
-            String val = Integer.toString(currCount);
-            for (int j = 0; j < val.length(); j++) {
-                k++;
-                chars[k] = val.charAt(j);
-            }
-        }
-
-        return k + 1;
+        return k;
     }
 }
 // @lc code=end
