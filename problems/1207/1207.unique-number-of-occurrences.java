@@ -26,21 +26,12 @@ class Solution {
 
         Map<Integer, Integer> occurences = new HashMap<>();
         for (int val : arr) {
-            if (occurences.containsKey(val)) {
-                occurences.put(val, occurences.get(val) + 1);
-            } else {
-                occurences.put(val, 1);
-            }
+            occurences.put(val, occurences.getOrDefault(val, 0) + 1);
         }
 
-        Set<Integer> unique = new HashSet<>();
-        for (int cnt : occurences.values()) {
-            if (!unique.add(cnt)) {
-                return false;
-            }
-        }
+        Set<Integer> unique = new HashSet<>(occurences.values());
 
-        return true;
+        return unique.size() == occurences.size();
     }
 }
 // @lc code=end
