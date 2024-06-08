@@ -19,32 +19,25 @@ class Solution {
          * [1,8,11,17,22,28]
          * [28,27,20,17,11,6]
          *
-         * O(N) time, O(N) space
+         * O(N) time, O(1) space
          */
 
-        int[] prefix = new int[nums.length];
+        int totalSum = 0;
+        int leftSum = 0;
 
-        // populate with prefix
-        int prev = 0;
+        for (int num : nums) {
+            totalSum += num;
+        }
+
         for (int i = 0; i < nums.length; i++) {
-            prev += nums[i];
-            prefix[i] = prev;
-        }
-
-        // calculate suffix and compare with prefix
-        int ans = -1;
-        int suffix = 0;
-        for (int i = nums.length - 1; i >= 0; i--) {
-            int pref = i == 0 ? 0 : prefix[i - 1];
-
-            if (suffix == pref) {
-                ans = i;
+            // if leftSum == totalSum - leftSum - nums[i] -> then left most pivot index
+            if (leftSum == totalSum - leftSum - nums[i]) {
+                return i;
             }
-
-            suffix += nums[i];
+            leftSum += nums[i];
         }
 
-        return ans;
+        return -1;
     }
 }
 // @lc code=end
