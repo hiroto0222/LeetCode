@@ -17,18 +17,25 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
+        /*
+         * reverse linked list
+         *
+         * intuition:
+         * keep track of prev node
+         *
+         * O(N) time, O(1) space
+         */
+
         if (head == null || head.next == null) {
             return head;
         }
 
-        ListNode curr = head.next;
-        ListNode prev = head;
-        prev.next = null;
-        while (curr != null) {
-            ListNode temp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = temp;
+        ListNode prev = null;
+        while (head != null) {
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
         }
 
         return prev;
