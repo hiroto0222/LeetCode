@@ -48,5 +48,27 @@ class Solution {
 
         return true;
     }
+
+    public boolean canVisitAllRoomsDFS(List<List<Integer>> rooms) {
+        boolean[] visited = new boolean[rooms.size()];
+        dfs(rooms, 0, visited);
+
+        for (boolean b : visited) {
+            if (!b) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void dfs(List<List<Integer>> rooms, int currRoom, boolean[] visited) {
+        visited[currRoom] = true;
+        for (int room : rooms.get(currRoom)) {
+            if (!visited[room]) {
+                dfs(rooms, room, visited);
+            }
+        }
+    }
 }
 // @lc code=end
