@@ -5,27 +5,29 @@
  */
 
 // @lc code=start
+
+import java.util.Arrays;
+
 class Solution {
     public int uniquePaths(int m, int n) {
-        // dp[m][n] = dp[m - 1][n] + dp[m][n - 1]
-        // as only 1 way to reach first row, first col
-        // dp[0][0 to n] = 1
-        // dp[0 to n][0] = 1
-        // time -> O(mn)
-        // space -> O(mn)
+        // [1,1,1,1,1,1,1]
+        // [1,2,3,4,5,6,7]
+        // [1,3,6,10,15,21,28]
+        // dp[row][col] = dp[row][col - 1] + dp[row - 1][col]
+        // only need to keep track of previous row
+        // bottom-up iterative dp
+        // O(N*M) time, O(N) space
 
-        int[][] dp = new int[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == 0 || j == 0) {
-                    dp[i][j] = 1;
-                } else {
-                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-                }
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+        m--;
+        while (m-- > 0) {
+            for (int i = 0; i < n; i++) {
+                dp[i] += i == 0 ? 0 : dp[i - 1];
             }
         }
 
-        return dp[m - 1][n - 1];
+        return dp[n - 1];
     }
 }
 // @lc code=end
