@@ -43,5 +43,26 @@ class Solution {
 
         return Math.max(toBuy[n - 1], toSell[n - 1]);
     }
+
+    public int maxProfit2(int[] prices, int fee) {
+        /*
+         * only depends on previous toBuy, toSell state
+         *
+         * O(N) time, O(1) space
+         */
+
+        int n = prices.length;
+
+        int toBuy = 0;
+        int toSell = -prices[0] - fee;
+
+        for (int i = 1; i < n; i++) {
+            int prevToBuy = toBuy, prevToSell = toSell;
+            toBuy = Math.max(prevToBuy, prevToSell + prices[i]); // wait or sells holding stock
+            toSell = Math.max(prevToSell, prevToBuy - prices[i] - fee); // wait or buy new stock
+        }
+
+        return Math.max(toBuy, toSell);
+    }
 }
 // @lc code=end
