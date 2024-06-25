@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 /*
  * @lc app=leetcode id=208 lang=java
  *
@@ -7,48 +5,80 @@ import java.util.HashMap;
  */
 
 // @lc code=start
+class TrieNode {
+    public TrieNode[] children;
+    public boolean endOfWord;
+
+    public TrieNode() {
+        this.children = new TrieNode[26]; // 26 letters
+        this.endOfWord = false;
+    }
+}
+
 class Trie {
+    /*
+     * - trie data structure (prefix tree)
+     * - all lower case letters 26
+     * - each node represents a letter
+     */
 
-    class TrieNode {
-    
-        HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
-        boolean isEndOfWord = false;
+    public TrieNode root;
+
+    public Trie() {
+        this.root = new TrieNode();
     }
 
-    TrieNode root = new TrieNode();
-    
+    /*
+     * inserts string word into trie
+     * O(N) time
+     */
     public void insert(String word) {
-        TrieNode curr = root;
-        for (char c: word.toCharArray()) {
-            if (!curr.children.containsKey(c)) {
-                curr.children.put(c, new TrieNode());
+        TrieNode node = this.root;
+        for (char c : word.toCharArray()) {
+            int i = c - 'a';
+            // if letter does not already exist
+            if (node.children[i] == null) {
+                node.children[i] = new TrieNode();
             }
-            curr = curr.children.get(c);
+            node = node.children[i];
         }
-        curr.isEndOfWord = true;
+        // update last letter as end of word
+        node.endOfWord = true;
     }
-    
+
+    /*
+     * returns true if string word is in trie
+     * (search("apple") and apple in trie, then true)
+     * (search("app") and apple in trie, then false)
+     * O(N) time
+     */
     public boolean search(String word) {
-        TrieNode curr = root;
-        for (char c: word.toCharArray()) {
-            if (!curr.children.containsKey(c)) {
+        TrieNode node = this.root;
+        for (char c : word.toCharArray()) {
+            int i = c - 'a';
+            if (node.children[i] == null) {
                 return false;
             }
-            curr = curr.children.get(c);
+            node = node.children[i];
         }
 
-        return curr.isEndOfWord;
+        return node.endOfWord;
     }
-    
+
+    /*
+     * returns true if a word starts with prefix
+     * O(N) time
+     */
     public boolean startsWith(String prefix) {
-        TrieNode curr = root;
-        for (char c: prefix.toCharArray()) {
-            if (!curr.children.containsKey(c)) {
+        TrieNode node = this.root;
+        for (char c : prefix.toCharArray()) {
+            int i = c - 'a';
+            if (node.children[i] == null) {
                 return false;
             }
-            curr = curr.children.get(c);
+            node = node.children[i];
         }
-        
+
         return true;
     }
 }
@@ -61,4 +91,3 @@ class Trie {
  * boolean param_3 = obj.startsWith(prefix);
  */
 // @lc code=end
-
