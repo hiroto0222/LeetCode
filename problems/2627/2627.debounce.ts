@@ -19,7 +19,7 @@ if t = 35ms and the function was called at 30ms, 60ms, 100ms:
 100ms -> called at 135ms
 
 intuition:
-- using timeout and callback
+- using timeout and callback.
 
 O(1) time, O(1) space
  */
