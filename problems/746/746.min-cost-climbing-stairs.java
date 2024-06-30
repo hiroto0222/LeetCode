@@ -9,32 +9,29 @@ class Solution {
     public int minCostClimbingStairs(int[] cost) {
         /*
          * return min cost to reach top floor
-         * can climb 1 or 2 steps
+         * can start from index 0 or index 1
          *
          * intuition:
-         * - we want to know mincost to reach n
-         * - mincost(n) would relate to mincost(n - 1) and mincost(n - 2)
-         * - base cases are
-         * - dp[0] = cost[0]
-         * - dp[1] = cost[1]
-         * ...
-         * - dp[n] = min(dp[n - 2], dp[n - 1])
-         * - bottom-up dp
+         * bottom-up dp
+         * dp[i] = cost[i] + min(dp[i - 1], dp[i - 2])
          *
-         * O(N) time, O(N) space
+         * O(N) time, O(1) space
          */
 
         int n = cost.length;
-        int[] dp = new int[n];
-        // base case
-        dp[0] = cost[0];
-        dp[1] = cost[1];
 
-        for (int i = 2; i < n; i++) {
-            dp[i] = cost[i] + Math.min(dp[i - 1], dp[i - 2]);
+        // base cases
+        int prev = cost[0];
+        int curr = cost[1];
+
+        for (int i = 2; i <= n; i++) {
+            int c = i == n ? 0 : cost[i];
+            int temp = curr;
+            curr = c + Math.min(prev, curr);
+            prev = temp;
         }
 
-        return Math.min(dp[n - 1], dp[n - 2]);
+        return curr;
     }
 }
 // @lc code=end
