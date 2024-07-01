@@ -8,33 +8,34 @@
 class Solution {
     public int rob(int[] nums) {
         /*
-         * cannot rob from 2 adjacent houses
-         * return max amount of money you can rob
+         * cannot rob 2 adjacent houses.
+         * return max amount of money that can be robbed
          *
          * intuition:
-         * - the robber has 2 options, rob curr house, or dont
-         * - dp[i] = max(dp[i - 2] + curr, dp[i - 1])
-         * - bottom-up dp
+         * - dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+         * - depends only on prev 2
          *
-         * O(N) time, O(N) space
+         * O(N) time, O(1) space
          */
 
-        int n = nums.length;
-
-        if (n == 0) {
-            return 0;
+        if (nums.length == 1) {
+            return nums[0];
         }
 
-        int[] dp = new int[n + 1];
-        // base cases
-        dp[0] = 0;
-        dp[1] = nums[0];
-
-        for (int i = 1; i < n; i++) {
-            dp[i + 1] = Math.max(dp[i - 1] + nums[i], dp[i]);
+        if (nums.length == 2) {
+            return Math.max(nums[0], nums[1]);
         }
 
-        return dp[n];
+        int prev = nums[0];
+        int curr = Math.max(nums[0], nums[1]);
+
+        for (int i = 2; i < nums.length; i++) {
+            int temp = curr;
+            curr = Math.max(curr, prev + nums[i]);
+            prev = temp;
+        }
+
+        return curr;
     }
 }
 // @lc code=end
