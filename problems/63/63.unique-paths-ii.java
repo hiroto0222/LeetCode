@@ -7,33 +7,41 @@
 // @lc code=start
 class Solution {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-        // bottom-up DP
-        int m = obstacleGrid.length, n = obstacleGrid[0].length;
-        int[][] dp = new int[m][n];
+        /*
+         * start from (0,0).
+         * can only move down or right.
+         * path cannot contain obstacles.
+         * return number of unique paths.
+         *
+         * intution:
+         * dp
+         *
+         * O(N) time, O(N) space
+         */
+
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
 
         for (int i = 0; i < m; i++) {
-            if (obstacleGrid[i][0] == 1) {
-                break;
-            }
-            dp[i][0] = 1;
-        }
-
-        for (int i = 0; i < n; i++) {
-            if (obstacleGrid[0][i] == 1) {
-                break;
-            }
-            dp[0][i] = 1;
-        }
-
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                if (obstacleGrid[i][j] != 1) {
-                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            for (int j = 0; j < n; j++) {
+                // if obstacle, update number of paths to 0.
+                if (obstacleGrid[i][j] == 1) {
+                    obstacleGrid[i][j] = 0;
+                    continue;
                 }
+                // if not obstacle and start point, update number of paths to 1.
+                if (i == 0 && j == 0) {
+                    obstacleGrid[i][j] = 1;
+                    continue;
+                }
+                // if neither dp[i][j] = dp[i - 1][j] + dp[i][j - 1] (top + left)
+                int top = i == 0 ? 0 : obstacleGrid[i - 1][j];
+                int left = j == 0 ? 0 : obstacleGrid[i][j - 1];
+                obstacleGrid[i][j] = top + left;
             }
         }
 
-        return dp[m - 1][n - 1];
+        return obstacleGrid[m - 1][n - 1];
     }
 }
 // @lc code=end
