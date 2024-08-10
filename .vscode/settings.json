@@ -1,7 +1,9 @@
 {
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter"
-  },
-  "python.linting.mypyEnabled": false,
-  "mypy.enabled": false
+  "leetcode.workspaceFolder": "/Users/h003167/personal/LeetCode/problems",
+  "leetcode.filePath": {
+    "default": {
+      "folder": "${id}",
+      "filename": "${id}.${kebab-case-name}.${ext}"
+    }
+  }
 }
