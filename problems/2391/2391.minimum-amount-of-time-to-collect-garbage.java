@@ -13,36 +13,19 @@ class Solution {
         // - must visit each house in order, but do not need to visit every house
         // 
         // intuition:
-        // iterate every house and greedily add mins
+        // iterate in reverse
+        // dont need to check last house, as travel time is 0.
 
         int n = garbage.length;
-        int[] timeTravel = new int[3]; // M, P, G
-        int[] timeCollect = new int[3];
-        int res = 0;
+        Boolean m = false, p = false, g = false;
+        int res = garbage[0].length();
 
-        int curr = 0;
-        for (int i = 0; i < n; i++) {
-            String s = garbage[i];
-            for (int j = 0; j < s.length(); j++) {
-                if (s.charAt(j) == 'M') {
-                    timeTravel[0] = curr;
-                    timeCollect[0]++;
-                } else if (s.charAt(j) == 'P') {
-                    timeTravel[1] = curr;
-                    timeCollect[1]++;
-                } else {
-                    timeTravel[2] = curr;
-                    timeCollect[2]++;
-                }
-            }
+        for (int i = n - 1; i > 0; i--) {
+            m |= garbage[i].contains("M");
+            p |= garbage[i].contains("P");
+            g |= garbage[i].contains("G");
 
-            if (i < n - 1) {
-                curr += travel[i];
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            res += timeTravel[i] + timeCollect[i];
+            res += travel[i - 1] * ((m ? 1 : 0) + (p ? 1 : 0) + (g ? 1 : 0)) + garbage[i].length();
         }
 
         return res;
